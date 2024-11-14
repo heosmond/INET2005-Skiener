@@ -3,15 +3,20 @@
   "version": "1.0.0",
   "description": "Final project for INET2005",
   "main": "server.js",
+  "type": "module",
   "scripts": {
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Hannah Osmond",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^5.22.0",
     "cookie": "^1.0.1",
     "cors": "^2.8.5",
     "express": "^4.21.1",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.7",
     "prisma": "^5.22.0"
   }
 }
