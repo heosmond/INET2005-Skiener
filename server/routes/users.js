@@ -69,18 +69,37 @@ router.post('/login', async (req, res) => {
         return res.status(401).send('Invalid password');
     }
 
+    //session data
+    req.session.customer_id = existingUser.customer_id;
+    req.session.email = existingUser.email;
+    req.session.first_name = existingUser.first_name;
+    req.session.last_name = existingUser.last_name;
+    console.log('logged in user: ' + req.session.email);
+
     res.json({ 'user' : email}).status(200);
 });
 
 
 // logout (../users/logout)
 router.post('/logout', async (req, res) => {
-    res.send("logout");
+    req.session.destroy();
+    res.send('Sucessful Logout');
 });
 
 // get user session (../users/getSession)
 router.get('/getSession', async (req, res) => {
-    res.send("get session");
+    if (!req.session.customer_id) {
+        return res.status(401).send("User is not logged in");
+    }
+
+    console.log(req.sessionID);
+    
+    res.json({
+        'customer_id' : req.session.customer_id,
+        'email' : req.session.email,
+        'first_name' : req.session.first_name,
+        'last_name' : req.session.last_name,
+    });
 });
 
 export default router;
