@@ -16,7 +16,7 @@ model Product {
   description    String
   cost           Float
   image_filename String
-  purchases PurchaseItem[]
+  purchases      PurchaseItem[]
 }
 
 model Customer {
@@ -25,34 +25,34 @@ model Customer {
   password    String
   first_name  String
   last_name   String
-  purchases Purchase[]
+  purchases   Purchase[]
 }
 
 model Purchase {
-  purchase_id Int @id @default(autoincrement())
-  customer_id Int
-  street String
-  city String
-  province String
-  country String
-  postal_code String
-  credit_card String
+  purchase_id   Int @id @default(autoincrement())
+  customer_id   Int
+  street        String
+  city          String
+  province      String
+  country       String
+  postal_code   String
+  credit_card   String
   credit_expire String
-  credit_cvv String
-  invoice_amt Float
-  invoice_tax Float
+  credit_cvv    String
+  invoice_amt   Float
+  invoice_tax   Float
   invoice_total Float
-  order_date DateTime @default(now())
-  products PurchaseItem[]
-  customer Customer @relation(fields: [customer_id], references: [customer_id])
+  order_date    DateTime @default(now())
+  products      PurchaseItem[]
+  customer      Customer @relation(fields: [customer_id], references: [customer_id])
 }
 
 model PurchaseItem {
   purchase_id Int
-  product_id Int
-  quantity Int
-  Purchase Purchase @relation(fields: [purchase_id], references: [purchase_id])
-  Product Product @relation(fields: [product_id], references: [product_id])
+  product_id  Int
+  quantity    Int
+  Purchase    Purchase @relation(fields: [purchase_id], references: [purchase_id])
+  Product     Product @relation(fields: [product_id], references: [product_id])
 
   @@id([purchase_id, product_id])
 }
