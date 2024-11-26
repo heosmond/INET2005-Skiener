@@ -86,7 +86,6 @@ router.post('/purchase', async (req, res) => {
         quantity: amt,
     }));
 
-    //Populate purchaseItem table for each unique product, with quantity
     const purchaseItem = await prisma.purchaseItem.createMany({
         data
     });

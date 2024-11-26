@@ -1,6 +1,7 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
 import { hashPassword, comparePassword } from '../lib/utility.js';
+import { schema } from '../lib/pwValidator.js';
 
 const router = express.Router();
 const prisma = new PrismaClient();
@@ -24,6 +25,11 @@ router.post('/signup', async (req, res) => {
     });
     if (existingUser) {
         return res.status(400).send('User already exists');
+    }
+
+    //validate password
+    if (!schema.validate(password)){
+        return res.status(400).send(schema.validate(password, {details: true}));
     }
 
     //hash the password
