@@ -29,7 +29,10 @@ router.post('/signup', async (req, res) => {
 
     //validate password
     if (!schema.validate(password)){
-        return res.status(400).send(schema.validate(password, {details: true}));
+        const passwordDetails = schema.validate(password, {details: true});
+        return res.status(400).send(passwordDetails.map(
+            (details) => details.message.replace("The string should", "Password must")
+        ));
     }
 
     //hash the password
