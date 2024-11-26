@@ -51,10 +51,6 @@ router.post('/purchase', async (req, res) => {
         return res.status(400).send("Cart cannot be empty when checking out")
     }
 
-    if (!req.session.customer_id) {
-        return res.status(401).send("User must be logged in to complete purchase");
-    }
-
     //Populate purchase table
     const purchase = await prisma.purchase.create({
         data: {
