@@ -1,3 +1,4 @@
+-------------------- API --------------------
 Users
 - GET
 http://localhost:3000/api/users/getSession
@@ -14,3 +15,16 @@ http://localhost:3000/api/products/{id}
 
 - POST
 http://localhost:3000/api/products/purchase
+
+
+-------------------- CLIENT --------------------
+Home: http://localhost:5173/
+Details: http://localhost:5173/1
+Signup: http://localhost:5173/signup
+Login: http://localhost:5173/login
+Logout: http://localhost:5173/logout
+Cart: http://localhost:5173/cart
+Checkout: http://localhost:5173/checkout
+Confirm: http://localhost:5173/confirm
+
+

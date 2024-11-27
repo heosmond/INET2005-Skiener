@@ -11,6 +11,8 @@ import Cart from './routes/Cart.jsx'
 import Checkout from './routes/Checkout.jsx'
 import Confirm from './routes/Confirm.jsx'
 import './index.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
 
 const router = createBrowserRouter([
   {
