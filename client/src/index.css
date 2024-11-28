@@ -1,1 +1,12 @@
+.img-detail {
+    width: 70%;
+}
 
+@media (max-width: 768px) {
+    .md-view {
+        text-align: center;
+    }
+    .img-detail {
+        width: 80%;
+    }
+} 
