@@ -38,10 +38,8 @@ router.get('/:id', async (req, res) => {
 
 // purchase
 router.post('/purchase', async (req, res) => {
-    var { street, city, province, country, postal_code, credit_card, credit_expire, 
+    const { street, city, province, country, postal_code, credit_card, credit_expire, 
         credit_cvv, cart, invoice_amt, invoice_tax, invoice_total } = req.body;
-
-    cart = "1,2,5,5,3,5,1";
 
     if (!req.session.customer_id) {
         return res.status(401).send("User is not logged in");

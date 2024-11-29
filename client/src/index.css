@@ -2,6 +2,10 @@
     width: 70%;
 }
 
+.img-mini {
+    width: 20%;
+}
+
 @media (max-width: 768px) {
     .md-view {
         text-align: center;
@@ -9,4 +13,7 @@
     .img-detail {
         width: 80%;
     }
-} 
+    .img-mini{
+        width: 40%
+    }
+}
