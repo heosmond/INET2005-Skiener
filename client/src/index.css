@@ -6,6 +6,10 @@
     width: 20%;
 }
 
+.account-form {
+    width: 30%;
+}
+
 @media (max-width: 768px) {
     .md-view {
         text-align: center;
@@ -14,6 +18,9 @@
         width: 80%;
     }
     .img-mini{
-        width: 40%
+        width: 40%;
+    }
+    .account-form {
+        width: 90%;
     }
 }

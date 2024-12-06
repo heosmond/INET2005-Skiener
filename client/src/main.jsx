@@ -1,3 +1,6 @@
+import 'core-js/es/promise'; //for Yup to work in other browsers
+import 'core-js/es/set';
+import 'core-js/es/map';
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'

@@ -8,7 +8,7 @@ export default function Default() {
 
   const apiHost = import.meta.env.VITE_API_HOST;
   const apiUrl = apiHost + '/api/products';
-  var total = 0;
+
 
   useEffect(() => {
       async function fetchData() {
@@ -54,7 +54,8 @@ export default function Default() {
       }
 
       fetchData();
-  }, []);
+  }, [cookies.cart]);
+
 
   function getTotal(products) {
     return products.map((product) => {
@@ -63,9 +64,11 @@ export default function Default() {
     .reduce((acc, cur) => acc + cur, 0);
   }
 
+
   if (products === undefined || !products) {
-    return <><p>Cart is empty.</p><p>{cookies.cart}</p></>;
+    return <><h2 className='m-4'>Cart is empty.</h2><p>{cookies.cart}</p></>;
   }
+
 
   return (
     <div className="container">
