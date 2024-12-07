@@ -1,6 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
+//TODO update with purchase address line
 generator client {
   provider = "prisma-client-js"
 }
@@ -39,9 +39,6 @@ model Purchase {
   credit_card   String
   credit_expire String
   credit_cvv    String
-  invoice_amt   Float
-  invoice_tax   Float
-  invoice_total Float
   order_date    DateTime @default(now())
   products      PurchaseItem[]
   customer      Customer @relation(fields: [customer_id], references: [customer_id])

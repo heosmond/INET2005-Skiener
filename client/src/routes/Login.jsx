@@ -1,4 +1,4 @@
-import { data, Link, useOutletContext, useNavigate } from 'react-router-dom';
+import { Link, useOutletContext, useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from 'yup';
@@ -16,16 +16,19 @@ const formSchema = yup.object().shape({
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useOutletContext();
+  const location = useLocation();
   const navigate = useNavigate();
 
   const {register, handleSubmit, formState:{errors}} = useForm(
     {resolver: yupResolver(formSchema, { abortEarly: false })});
 
+  const params = new URLSearchParams(location.search);  
+  const redirectTo = params.get("redirect") || "/"; // Default to home if no redirect is provided
+
   const apiHost = import.meta.env.VITE_API_HOST;
   const apiUrl = apiHost + '/api/users/login';
 
   const onSubmit = async (data) => {
-
     try {
       // Create URLSearchParams for the form data
       const formData = new URLSearchParams();
@@ -42,7 +45,7 @@ export default function Login() {
   
       if (response.status === 200) {
         setIsLoggedIn(true);
-        navigate('/');
+        navigate(redirectTo);
       } else {
         setErrorMessage(response.data || 'An error occurred.');
       }

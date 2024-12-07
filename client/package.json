@@ -2,6 +2,7 @@
   "name": "skiener-ui",
   "private": true,
   "version": "0.0.0",
+  "proxy" : "http://localhost:3000",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,6 +12,8 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
+    "@mapbox/search-js-react": "^1.0.0-beta.24",
+    "@mui/material": "^6.1.10",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",

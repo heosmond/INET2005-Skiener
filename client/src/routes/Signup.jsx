@@ -1,7 +1,8 @@
-import { data, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from 'yup';
+import axios from 'axios';
 
 const formSchema = yup.object().shape({
   firstName: yup.string().required("First name is required"),
@@ -20,32 +21,40 @@ const formSchema = yup.object().shape({
 export default function Signup() {
   const {register, handleSubmit, formState:{errors}, watch} = useForm(
     {resolver: yupResolver(formSchema, { abortEarly: false })});
+  const navigate = useNavigate();
 
   const apiHost = import.meta.env.VITE_API_HOST;
   const apiUrl = apiHost + '/api/users/signup';
 
   const onSubmit = async (data) => {
-    const formData = new URLSearchParams();
 
-    // Append form fields
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-
-    // alert(JSON.stringify(data));
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type':'application/x-www-form-urlencoded',
-      },
-      body: formData
-    })
-
-    if (response.ok){
-      window.location.href = '/login';
-    } else {
-      alert("An error occured while submitting the form");
-      console.log(response);
+    try {
+      // Create URLSearchParams for the form data
+      const formData = new URLSearchParams();
+      Object.entries(data).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+  
+      const response = await axios.post(apiUrl, formData, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        withCredentials: true,
+      });
+  
+      if (response.status === 200) {
+        navigate('/login');
+      } else {
+        setErrorMessage(response.data || 'An error occurred.');
+      }
+    } catch (error) {
+      if (error.response) {
+        // The server responded with a status outside the 2xx range
+        setErrorMessage(error.response.data || 'An error occurred.');
+      } else {
+        // Some other error occurred (e.g., network error)
+        setErrorMessage('An error occurred. Please try again later.');
+      }
     }
   }
 

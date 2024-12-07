@@ -6,7 +6,6 @@ import { useState } from 'react';
 export default function Login() {
   const [loggedOut, setLoggedOut] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useOutletContext();
-  const navigate = useNavigate();
 
   const apiHost = import.meta.env.VITE_API_HOST;
   const apiUrl = apiHost + '/api/users/logout';

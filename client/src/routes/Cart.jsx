@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 
@@ -123,7 +123,6 @@ export default function Default() {
     return <><h2 className='m-4'>Cart is empty.</h2><p>{cookies.cart}</p></>;
   }
 
-
   return (
     <div className="container">
       <h1 className="text-center my-4">Cart</h1>
@@ -131,24 +130,18 @@ export default function Default() {
         {products.map((product) => (
           <li className="list-group-item" key={product.product_id}>
             <div className='row'>
-              <div className='col'><img src={`${apiHost}/${product.image_filename}`} className='img-mini'></img></div>
-              <div className='col'><h4>{product.name}</h4></div>
-              <div className='col text-end'>
+              <div className='col align-self-center'><img src={`${apiHost}/${product.image_filename}`} className='img-mini'></img></div>
+              <div className='col align-self-center'><h4>{product.name}</h4></div>
+              <div className='col text-end text-center'>
                 <p>Quantity: {product.quantity}</p>
                 <div> 
-                  <button className="btn btn-outline-secondary btn-sm me-2" onClick={() => decreaseQuantity(product.product_id)}> 
-                    <img src="/dash.svg" />
-                  </button> 
-                  <button className="btn btn-outline-secondary btn-sm" onClick={() => increaseQuantity(product.product_id)}>
-                    <img src="/plus.svg" />
-                  </button>
+                  <button className="btn btn-outline-secondary btn-sm me-2" onClick={() => decreaseQuantity(product.product_id)}> –</button> 
+                  <button className="btn btn-outline-secondary btn-sm" onClick={() => increaseQuantity(product.product_id)}>+</button>
                 </div>
               </div>
-              <div className='col text-end'><p>Price: ${product.cost.toFixed(2)}</p></div>
-              <div className='col text-end me-2'>
-                <button className="btn btn-danger btn-sm" onClick={() => removeItem(product.product_id)}>
-                  <img src="/trash-fill.svg" />
-                </button> 
+              <div className='col align-self-center text-end'><p>Price: ${product.cost.toFixed(2)}</p></div>
+              <div className='col text-end me-2 align-self-center'>
+                <button className="btn btn-danger btn-sm" onClick={() => removeItem(product.product_id)}>X</button> 
               </div>
             </div>
           </li>
