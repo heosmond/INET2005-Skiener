@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-function Nav() {
+export default function Nav({loggedIn}) {
     return (
         <nav className="navbar sticky-top navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
@@ -15,14 +15,18 @@ function Nav() {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <div className="navbar-nav me-auto mb-2 mb-lg-0">
                             <Link to="/" className="nav-item nav-link">Home</Link>
-                            <Link to="/cart" className="nav-item nav-link">Cart</Link>
-                            <Link to="/login" className="nav-item nav-link">Login</Link>
-                            <Link to="/logout" className="nav-item nav-link">Logout</Link>
+                            {loggedIn ?
+                            <Link to="/logout" className="nav-item nav-link">Logout</Link> :
+                            <Link to="/login" className="nav-item nav-link">Login</Link>}
+
+                            <div className="d-flex justify-content-start">
+                                <Link to="/cart" className="nav-item nav-link">
+                                    <img src="/bag-fill.svg" width="23" className="d-inline-block align-top" alt="" />
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
         </nav>
     )
 }
-  
-export default Nav

@@ -1,8 +1,9 @@
-import { data, Link } from 'react-router-dom';
+import { data, Link, useOutletContext, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from 'yup';
 import { useState } from 'react';
+import axios from 'axios';
 
 const formSchema = yup.object().shape({
   email: yup.string()
@@ -14,6 +15,8 @@ const formSchema = yup.object().shape({
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useOutletContext();
+  const navigate = useNavigate();
 
   const {register, handleSubmit, formState:{errors}} = useForm(
     {resolver: yupResolver(formSchema, { abortEarly: false })});
@@ -22,33 +25,37 @@ export default function Login() {
   const apiUrl = apiHost + '/api/users/login';
 
   const onSubmit = async (data) => {
-    const formData = new URLSearchParams();
-  
-    // Append form fields
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
 
     try {
-      const response = await fetch(apiUrl, {
-        method: 'POST',
+      // Create URLSearchParams for the form data
+      const formData = new URLSearchParams();
+      Object.entries(data).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+  
+      const response = await axios.post(apiUrl, formData, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: formData,
-        credentials: 'include',
+        withCredentials: true,
       });
-
-      if (response.ok) {
-        window.location.href = '/';
+  
+      if (response.status === 200) {
+        setIsLoggedIn(true);
+        navigate('/');
       } else {
-        const resText = await response.text();
-        setErrorMessage(resText);
+        setErrorMessage(response.data || 'An error occurred.');
       }
     } catch (error) {
-      setErrorMessage('An error occurred. Please try again later.');
+      if (error.response) {
+        // The server responded with a status outside the 2xx range
+        setErrorMessage(error.response.data || 'An error occurred.');
+      } else {
+        // Some other error occurred (e.g., network error)
+        setErrorMessage('An error occurred. Please try again later.');
+      }
     }
-  }
+  };
 
   return (
     <div className="container my-4 p-3">
